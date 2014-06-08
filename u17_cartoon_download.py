@@ -102,8 +102,8 @@ def main(cartoon_url, max_chapter=None):
         start_chapter = 1
         end_chapter = len(chapter_info) / 2
         if max_chapter is not None:
-            if end > max_chapter:
-                end = max_chapter
+            if end_chapter > max_chapter:
+                end_chapter = max_chapter
         download_chapter(title, chapter_info, start_chapter, end_chapter, 1)
 
 
