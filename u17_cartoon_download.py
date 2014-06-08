@@ -18,7 +18,7 @@ from bs4 import BeautifulSoup
 def get_page_img(page_url):
     img_temp = []
     cartoon_html = requests.get(page_url).content
-    img_url_list = re.findall(b'"src":"(.*?)"', cartoon_html)
+    img_url_list = re.findall(r'"src":"(.*?)"', cartoon_html)
     for each in img_url_list:
         img_temp.append(base64.b64decode(each))
     # 返回某一章所有图片列表
