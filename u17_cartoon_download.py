@@ -48,7 +48,7 @@ def get_cartoon(url):
     return (title, chapter)
 
 
-def download_chapter(start_chapter, end_chapter, cpt_log, new):
+def download_chapter(title, chapter, start_chapter, end_chapter, cpt_log, new):
 # 遍历需要下载的章节
     for n in range(start_chapter, end_chapter):
         i = 1
@@ -75,7 +75,7 @@ def download_chapter(start_chapter, end_chapter, cpt_log, new):
     print('%s' % i)
 
 
-def main():
+def main(title, chapter, max_chapter=None):
     print('Start Check!')
     if os.path.exists('Cartoon/%s' % title):
     # 文件存在即读取info.log 获得已存在章节信息
@@ -95,7 +95,7 @@ def main():
             cpt_log = ''
             start = local_chapter_num + 1
             end = chapter_num + 1
-            download_chapter(start, end, cpt_log, 0)
+            download_chapter(title, chapter, start, end, cpt_log, 0)
         else:
             print('No chapter to update!')
     else:
@@ -106,12 +106,19 @@ def main():
         cpt_log = '    %s   Tables\n' % title
         start = 1
         end = len(chapter) / 3 + 1
-        download_chapter(start, end, cpt_log, 1)
+        if max_chapter is not None:
+            if end > max_chapter:
+                end = max_chapter + 1
+        download_chapter(title, chapter, start, end, cpt_log, 1)
+
+
+def download_url(url, max_chapter=None):
+    title, chapter = get_cartoon(url)
+    main(title, chapter, max_chapter)
 
 
 if (__name__ == '__main__'):
     # 漫画地址
     print ('Start……')
     cartoon_url = 'http://www.u17.com/comic/5553.html'
-    title, chapter = get_cartoon(cartoon_url)
-    main()
+    download_url(cartoon_url)
