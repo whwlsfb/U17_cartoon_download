@@ -14,8 +14,6 @@ from bs4 import BeautifulSoup
 删除info.log 文件内容时最后留一行空白
 
 '''
-
-
 def get_page_img(page_url):
     img_temp = []
     cartoon_html = requests.get(page_url).content
